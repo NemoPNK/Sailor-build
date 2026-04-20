@@ -90,7 +90,6 @@ h3 {
 .check-item__note,
 .reference-grid,
 .missing-list,
-.topbar__status,
 .main-card__objective {
   color: var(--muted);
 }
@@ -123,8 +122,31 @@ h3 {
   flex-wrap: wrap;
 }
 
-.topbar__status {
-  margin: 8px 0 0;
+.update-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.update-badge__label {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.update-badge__value {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  min-height: 32px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--green);
+  color: #111;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
 .button {
