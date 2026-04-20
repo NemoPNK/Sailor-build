@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sailor Build</title>
+    <meta
+      name="description"
+      content="Checklist et tracker de progression pour les builds Sailor Piece sur Roblox."
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Sailor Piece checklist</p>
+          <h1>Sailor Build</h1>
+        </div>
+        <div class="topbar__actions">
+          <a
+            class="button button--ghost"
+            href="https://trello.com/b/EVZ6nToB/sailor-piece"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Trello
+          </a>
+          <button class="button button--ghost" id="reset-all" type="button">
+            Reset all
+          </button>
+        </div>
+      </header>
+
+      <nav class="section-tabs" aria-label="Navigation sections" id="section-tabs">
+        <button class="section-tab section-tab--build" data-section="build" type="button">
+          Build
+        </button>
+        <button class="section-tab section-tab--upgrade" data-section="upgrade" type="button">
+          Player upgrade
+        </button>
+        <button class="section-tab section-tab--artifact" data-section="artifact" type="button">
+          Artifact
+        </button>
+      </nav>
+
+      <main class="layout">
+        <section class="workspace" id="build-section" data-section-panel="build">
+          <aside class="selector-card">
+            <p class="eyebrow">Selecteur</p>
+            <div class="selector-list" id="build-switcher"></div>
+            <div class="meta-mini" id="spotlight-grid"></div>
+          </aside>
+
+          <section class="main-card">
+            <div class="main-card__head">
+              <div>
+                <p class="active-build__label" id="active-build-label"></p>
+                <h2 id="active-build-name"></h2>
+              </div>
+              <button class="button button--ghost" id="reset-build" type="button">
+                Reset
+              </button>
+            </div>
+
+            <p class="main-card__objective" id="active-build-objective"></p>
+
+            <div class="tabs-inline" id="build-tabs-inline"></div>
+
+            <div class="progress-box">
+              <div class="progress-track">
+                <div class="progress-fill" id="build-progress-fill"></div>
+              </div>
+              <strong id="build-progress-copy"></strong>
+            </div>
+
+            <div class="checklist checklist--tight" id="build-checklist"></div>
+          </section>
+        </section>
+
+        <section class="simple-grid section-panel" id="upgrade-section" data-section-panel="upgrade">
+          <section class="simple-card simple-card--upgrade">
+            <div class="simple-card__head">
+              <div>
+                <p class="eyebrow">Player</p>
+                <h3>Upgrades</h3>
+              </div>
+              <strong id="upgrades-progress-copy"></strong>
+            </div>
+            <div class="progress-track progress-track--thin">
+              <div class="progress-fill" id="upgrades-progress-fill"></div>
+            </div>
+            <div class="checklist checklist--tight" id="upgrades-checklist"></div>
+          </section>
+          <section class="simple-card simple-card--upgrade side-note-card">
+            <div class="simple-card__head">
+              <div>
+                <p class="eyebrow">Progression</p>
+                <h3>Resume joueur</h3>
+              </div>
+            </div>
+            <div class="mini-summary mini-summary--stack" id="summary-grid-upgrade"></div>
+          </section>
+        </section>
+
+        <section class="simple-grid section-panel" id="artifact-section" data-section-panel="artifact">
+          <section class="simple-card simple-card--artifact">
+            <div class="simple-card__head">
+              <div>
+                <p class="eyebrow">Artefact</p>
+                <h3>Abyssal Crown</h3>
+              </div>
+              <strong id="artifacts-progress-copy"></strong>
+            </div>
+            <div class="progress-track progress-track--thin">
+              <div class="progress-fill" id="artifacts-progress-fill"></div>
+            </div>
+            <div class="checklist checklist--tight" id="artifacts-checklist"></div>
+          </section>
+
+          <section class="simple-card simple-card--artifact side-note-card">
+            <div class="simple-card__head">
+              <div>
+                <p class="eyebrow">Target</p>
+                <h3>Rappel set</h3>
+              </div>
+            </div>
+            <div class="reference-grid reference-grid--single" id="reference-grid-artifact"></div>
+          </section>
+        </section>
+
+        <section class="footer-strip" data-section-panel="build">
+          <div class="mini-summary" id="summary-grid"></div>
+          <div class="info-strip">
+            <div class="info-card">
+              <p class="eyebrow">Refs utiles</p>
+              <div class="reference-grid" id="reference-grid"></div>
+            </div>
+            <div class="info-card">
+              <p class="eyebrow">A confirmer</p>
+              <ul class="missing-list" id="missing-list"></ul>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <template id="check-item-template">
+      <label class="check-item">
+        <input type="checkbox" />
+        <span class="check-item__body">
+          <span class="check-item__topline">
+            <strong class="check-item__slot"></strong>
+            <span class="status-badge"></span>
+          </span>
+          <span class="check-item__target"></span>
+          <span class="check-item__note"></span>
+        </span>
+      </label>
+    </template>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
