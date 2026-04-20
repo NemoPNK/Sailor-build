@@ -1,369 +1,131 @@
+const boardLink = "https://trello.com/b/EVZ6nToB/sailor-piece";
+const directTrelloLinks = {
+  "luckborn": "https://trello.com/c/MqAfEX2w",
+  "eminence": "https://trello.com/c/oVFa6Jou",
+  "frostbane": "https://trello.com/c/DtDaFLb9",
+  "celestial favor": "https://trello.com/c/nsdSLGSm",
+  "primordial rune": "https://trello.com/c/PFAheXK1",
+  "radiant rune": "https://trello.com/c/FHw2DEhl",
+  "kraken": "https://trello.com/c/dIZJ4xbR",
+  "astral": "https://trello.com/c/p4Y99yCR",
+  "dragon goddes": "https://trello.com/c/Mu0lsEAl",
+  "best damage title": "https://trello.com/c/vMmiFMDA",
+  "abyssal crown": "https://trello.com/c/XnwrlayY",
+  "main stat hp": "https://trello.com/c/XnwrlayY",
+  "main stat damage": "https://trello.com/c/XnwrlayY",
+  "main stat critical damage": "https://trello.com/c/XnwrlayY"
+};
+
 const appData = {
   spotlight: [
     {
       label: "Current best sword",
       value: "Dragon goddes",
-      note: "Meta manuelle, orthographe a confirmer selon ton naming exact."
+      note: "Current sword pick based on your latest meta."
     },
     {
       label: "Current best melee",
-      value: "Comis emperor",
-      note: "Meta manuelle fournie par toi, prete a etre remplacee au prochain patch."
+      value: "Comic emperor",
+      note: "Current melee pick based on your latest meta."
     },
     {
-      label: "Best artefact set",
+      label: "Best artifact set",
       value: "Abyssal Crown",
-      note: "Focus sur les bonnes main stats et 2 sub stats minimum."
-    },
-    {
-      label: "Source de verif",
-      value: "Trello officiel",
-      note: "Le site melange tes infos meta et les references du board public."
+      note: "Aim for the right main stat and at least 2 good sub stats."
     }
   ],
   builds: {
     luck: {
       label: "Luck",
       name: "Luck Build",
-      objective: "Optimise le farm, les drops et les sessions de grind longues.",
+      objective: "Built for farming, drops and long grind sessions.",
       items: [
-        {
-          id: "luck-race",
-          slot: "Race",
-          target: "Luckborn",
-          note: "Trello: +35% Luck, +80% Damage, +90% Max HP, +15% Sword et Melee.",
-          verified: true
-        },
-        {
-          id: "luck-clan",
-          slot: "Clan",
-          target: "Eminence",
-          note: "Reference Trello disponible. Aussi necessaire pour Atomic Mastery.",
-          verified: true
-        },
-        {
-          id: "luck-title",
-          slot: "Title",
-          target: "Celestial Favor",
-          note: "Trello: tuer 5000 boss. Buff reference: +50% Luck.",
-          verified: true
-        },
-        {
-          id: "luck-rune",
-          slot: "Rune",
-          target: "Radiant Rune",
-          note: "Trello: drop rare Infinite Tower. Base 17.5% Luck, max 28%.",
-          verified: true
-        },
-        {
-          id: "luck-power",
-          slot: "Power",
-          target: "Colossus",
-          note: "A confirmer dans ta prochaine passe de data."
-        },
-        {
-          id: "luck-passive",
-          slot: "Spec passive",
-          target: "Fortune chosen",
-          note: "Nom fourni par toi, details de bonus a completer."
-        },
-        {
-          id: "luck-bloodline",
-          slot: "Bloodline",
-          target: "Astral",
-          note: "A preciser si tu veux les buffs affiches en detail."
-        },
-        {
-          id: "luck-trait",
-          slot: "Trait",
-          target: "Emperor",
-          note: "Trait meta manuelle, source/buffs a confirmer."
-        },
-        {
-          id: "luck-relic",
-          slot: "Relic",
-          target: "Luck relic",
-          note: "Nom cible note, mais les infos Trello exactes sont a raccorder."
-        },
-        {
-          id: "luck-accessory",
-          slot: "Accessories",
-          target: "Kraken",
-          note: "Reference boss Trello presente, mais bonus d'accessoire a lier ensuite.",
-          verified: true
-        }
+        { id: "luck-race", slot: "Race", target: "Luckborn", note: "Trello: +35% Luck, +80% Damage, +90% Max HP, +15% Sword and Melee.", link: boardLink },
+        { id: "luck-clan", slot: "Clan", target: "Eminence", note: "Trello reference available. Also needed for Atomic Mastery.", link: boardLink },
+        { id: "luck-title", slot: "Title", target: "Celestial Favor", note: "Trello: kill 5000 bosses. Reference buff: +50% Luck.", link: boardLink },
+        { id: "luck-rune", slot: "Rune", target: "Radiant Rune", note: "Trello: rare Infinite Tower drop. Base 17.5% Luck, max 28%.", link: boardLink },
+        { id: "luck-power", slot: "Power", target: "Colossus", note: "Needs confirmation in your next data pass.", link: boardLink },
+        { id: "luck-passive", slot: "Spec passive", target: "Fortune chosen", note: "Name provided by you. Bonus details still needed.", link: boardLink },
+        { id: "luck-bloodline", slot: "Bloodline", target: "Astral", note: "Can be expanded later with detailed buffs.", link: boardLink },
+        { id: "luck-trait", slot: "Trait", target: "Emperor", note: "Manual meta pick. Source and buffs still to confirm.", link: boardLink },
+        { id: "luck-relic", slot: "Relic", target: "Luck relic", note: "Target relic noted. Exact Trello data still to connect.", link: boardLink },
+        { id: "luck-accessory", slot: "Accessory", target: "Kraken", note: "Boss reference exists on Trello. Accessory bonus still to connect.", link: boardLink }
       ]
     },
     sword: {
       label: "Sword",
       name: "Sword Build",
-      objective: "Maximise les degats d'epee autour de la meta offensive actuelle.",
+      objective: "Built to maximize sword damage around the current offensive meta.",
       items: [
-        {
-          id: "sword-race",
-          slot: "Race",
-          target: "Luckborn",
-          note: "Trello: gros package damage + survivabilite.",
-          verified: true
-        },
-        {
-          id: "sword-clan",
-          slot: "Clan",
-          target: "Frostbane",
-          note: "Reference Trello disponible. Lie a Ice Queen Mastery.",
-          verified: true
-        },
-        {
-          id: "sword-title",
-          slot: "Title",
-          target: "Best damage title",
-          note: "Nom exact encore a definir. Dragon Queen semble etre une piste meta Tres forte sur Trello."
-        },
-        {
-          id: "sword-rune",
-          slot: "Rune",
-          target: "Primordial Rune",
-          note: "Trello: rare Infinite Tower. Base 75% DMG, max 120% DMG.",
-          verified: true
-        },
-        {
-          id: "sword-power",
-          slot: "Power",
-          target: "Colossus",
-          note: "A confirmer dans ton prochain dump de stats."
-        },
-        {
-          id: "sword-passive",
-          slot: "Spec passive",
-          target: "Rampage",
-          note: "Source et buff exact a brancher plus tard."
-        },
-        {
-          id: "sword-bloodline",
-          slot: "Bloodline",
-          target: "Astral",
-          note: "Peut etre detaille avec buff et obtention des que tu me les donnes."
-        },
-        {
-          id: "sword-trait",
-          slot: "Trait",
-          target: "Emperor",
-          note: "Trait meta manuelle fournie par toi."
-        },
-        {
-          id: "sword-relic",
-          slot: "Relic",
-          target: "Damage relic",
-          note: "Nom cible note, version exacte a relier au Trello ou a ton doc perso."
-        },
-        {
-          id: "sword-accessory",
-          slot: "Accessories",
-          target: "Kraken",
-          note: "Accessoire cible actuel pour la meta sword.",
-          verified: true
-        },
-        {
-          id: "sword-weapon",
-          slot: "Weapon",
-          target: "Dragon goddes",
-          note: "Actuellement defini comme meilleure sword dans tes infos."
-        }
+        { id: "sword-race", slot: "Race", target: "Luckborn", note: "Trello: strong damage and survivability package.", link: boardLink },
+        { id: "sword-clan", slot: "Clan", target: "Frostbane", note: "Trello reference available. Linked to Ice Queen Mastery.", link: boardLink },
+        { id: "sword-title", slot: "Title", target: "Best damage title", note: "Exact title still missing. Dragon Queen looks like a strong Trello candidate.", link: boardLink },
+        { id: "sword-rune", slot: "Rune", target: "Primordial Rune", note: "Trello: rare Infinite Tower drop. Base 75% DMG, max 120% DMG.", link: boardLink },
+        { id: "sword-power", slot: "Power", target: "Colossus", note: "Needs confirmation in your next stat update.", link: boardLink },
+        { id: "sword-passive", slot: "Spec passive", target: "Rampage", note: "Source and exact buff can be added later.", link: boardLink },
+        { id: "sword-bloodline", slot: "Bloodline", target: "Astral", note: "Can be expanded with buffs and obtain method later.", link: boardLink },
+        { id: "sword-trait", slot: "Trait", target: "Emperor", note: "Manual meta trait based on your input.", link: boardLink },
+        { id: "sword-relic", slot: "Relic", target: "Damage relic", note: "Target relic noted. Exact version still to connect.", link: boardLink },
+        { id: "sword-accessory", slot: "Accessory", target: "Kraken", note: "Current target accessory for the sword meta.", link: boardLink },
+        { id: "sword-weapon", slot: "Weapon", target: "Dragon goddes", note: "Currently set as the best sword in your data.", link: boardLink }
       ]
     },
     melee: {
       label: "Melee",
       name: "Melee Build",
-      objective: "Pousse le corps-a-corps sur une configuration full damage endgame.",
+      objective: "Built for a full damage melee endgame setup.",
       items: [
-        {
-          id: "melee-race",
-          slot: "Race",
-          target: "Luckborn",
-          note: "Toujours tres forte pour conserver du damage et du confort.",
-          verified: true
-        },
-        {
-          id: "melee-clan",
-          slot: "Clan",
-          target: "Frostbane",
-          note: "Reference Trello disponible. Lie a Ice Queen Mastery.",
-          verified: true
-        },
-        {
-          id: "melee-title",
-          slot: "Title",
-          target: "Best damage title",
-          note: "Le nom exact du titre est encore a verrouiller."
-        },
-        {
-          id: "melee-rune",
-          slot: "Rune",
-          target: "Primordial Rune",
-          note: "Trello: setup damage tres agressif pour l'endgame.",
-          verified: true
-        },
-        {
-          id: "melee-power",
-          slot: "Power",
-          target: "Colossus",
-          note: "Meta manuelle fournie par toi."
-        },
-        {
-          id: "melee-passive",
-          slot: "Spec passive",
-          target: "Rampage",
-          note: "A completer avec son obtention et ses chiffres."
-        },
-        {
-          id: "melee-bloodline",
-          slot: "Bloodline",
-          target: "Astral",
-          note: "A lier a une fiche complete plus tard."
-        },
-        {
-          id: "melee-trait",
-          slot: "Trait",
-          target: "Emperor",
-          note: "Trait meta manuelle fournie par toi."
-        },
-        {
-          id: "melee-relic",
-          slot: "Relic",
-          target: "Damage relic",
-          note: "Nom cible note, version exacte a confirmer."
-        },
-        {
-          id: "melee-accessory",
-          slot: "Accessories",
-          target: "Kraken",
-          note: "Repris comme accessoire meta actuel.",
-          verified: true
-        },
-        {
-          id: "melee-weapon",
-          slot: "Weapon",
-          target: "Comis emperor",
-          note: "Actuellement defini comme meilleur melee dans tes infos."
-        }
+        { id: "melee-race", slot: "Race", target: "Luckborn", note: "Still very strong for damage and comfort.", link: boardLink },
+        { id: "melee-clan", slot: "Clan", target: "Frostbane", note: "Trello reference available. Linked to Ice Queen Mastery.", link: boardLink },
+        { id: "melee-title", slot: "Title", target: "Best damage title", note: "Exact title still needs confirmation.", link: boardLink },
+        { id: "melee-rune", slot: "Rune", target: "Primordial Rune", note: "Trello: very aggressive damage setup for endgame.", link: boardLink },
+        { id: "melee-power", slot: "Power", target: "Colossus", note: "Manual meta pick based on your input.", link: boardLink },
+        { id: "melee-passive", slot: "Spec passive", target: "Rampage", note: "Needs obtain method and exact numbers.", link: boardLink },
+        { id: "melee-bloodline", slot: "Bloodline", target: "Astral", note: "Can be linked to a full info sheet later.", link: boardLink },
+        { id: "melee-trait", slot: "Trait", target: "Emperor", note: "Manual meta trait based on your input.", link: boardLink },
+        { id: "melee-relic", slot: "Relic", target: "Damage relic", note: "Target relic noted. Exact version still to confirm.", link: boardLink },
+        { id: "melee-accessory", slot: "Accessory", target: "Kraken", note: "Used here as the current meta accessory.", link: boardLink },
+        { id: "melee-weapon", slot: "Weapon", target: "Comis emperor", note: "Currently set as the best melee in your data.", link: boardLink }
       ]
     }
   },
   upgrades: [
-    {
-      id: "upgrade-skill-tree",
-      slot: "Player upgrade",
-      target: "Skill tree",
-      note: "Verrouille toute la progression de base avant d'optimiser le reste."
-    },
-    {
-      id: "upgrade-tower",
-      slot: "Player upgrade",
-      target: "Tower upgrade",
-      note: "Important pour le scaling endgame et les runes."
-    },
-    {
-      id: "upgrade-boss-raid",
-      slot: "Player upgrade",
-      target: "Boss raid upgrade",
-      note: "Prioritaire si tu farm la meta accessoires et titres."
-    },
-    {
-      id: "upgrade-z-stats",
-      slot: "Player upgrade",
-      target: "Full Z stats",
-      note: "Objectif de stat cap complet."
-    },
-    {
-      id: "upgrade-ascend",
-      slot: "Player upgrade",
-      target: "Max ascend (1-10)",
-      note: "Checkpoint final pour valider le palier max."
-    },
-    {
-      id: "upgrade-haki",
-      slot: "Player upgrade",
-      target: "Max Haki level",
-      note: "A garder a jour a chaque patch si le cap bouge."
-    },
-    {
-      id: "upgrade-rune",
-      slot: "Player upgrade",
-      target: "Max Rune level",
-      note: "Independant du choix Primordial / Radiant."
-    },
-    {
-      id: "upgrade-b10",
-      slot: "Player upgrade",
-      target: "B10 Weapon and accessories",
-      note: "Blessing details a completer via Trello ou ton futur doc."
-    }
+    { id: "upgrade-skill-tree", slot: "Player upgrade", target: "Skill tree", note: "Lock in the core progression before optimizing the rest.", link: boardLink },
+    { id: "upgrade-tower", slot: "Player upgrade", target: "Tower upgrade", note: "Important for endgame scaling and rune progression.", link: boardLink },
+    { id: "upgrade-boss-raid", slot: "Player upgrade", target: "Boss raid upgrade", note: "Priority if you farm meta accessories and titles.", link: boardLink },
+    { id: "upgrade-z-stats", slot: "Player upgrade", target: "Full Z stats", note: "Full stat cap objective.", link: boardLink },
+    { id: "upgrade-ascend", slot: "Player upgrade", target: "Max ascend (1-10)", note: "Final checkpoint to validate the max tier.", link: boardLink },
+    { id: "upgrade-haki", slot: "Player upgrade", target: "Max Haki level", note: "Keep updated whenever the cap changes.", link: boardLink },
+    { id: "upgrade-rune", slot: "Player upgrade", target: "Max Rune level", note: "Independent from the Primordial / Radiant choice.", link: boardLink },
+    { id: "upgrade-b10", slot: "Player upgrade", target: "B10 weapon and accessories", note: "Blessing details can be added later from Trello.", link: boardLink }
   ],
   artifacts: [
-    {
-      id: "artifact-helmet",
-      slot: "Helmet",
-      target: "Main stat HP",
-      note: "Subs vises: DMG, Critical damage, Critical chance."
-    },
-    {
-      id: "artifact-glove",
-      slot: "Glove",
-      target: "Main stat Damage",
-      note: "Subs vises: Critical damage, Critical chance."
-    },
-    {
-      id: "artifact-armor",
-      slot: "Armor",
-      target: "Main stat Critical damage",
-      note: "Subs vises: DMG, Critical damage, Critical chance."
-    },
-    {
-      id: "artifact-boots",
-      slot: "Boots",
-      target: "Main stat Damage",
-      note: "Subs vises: DMG, Critical damage, Critical chance."
-    }
+    { id: "artifact-helmet", slot: "Helmet", target: "Main stat HP", note: "Wanted subs: DMG, Critical damage, Critical chance.", link: boardLink },
+    { id: "artifact-glove", slot: "Glove", target: "Main stat Damage", note: "Wanted subs: Critical damage, Critical chance.", link: boardLink },
+    { id: "artifact-armor", slot: "Armor", target: "Main stat Critical damage", note: "Wanted subs: DMG, Critical damage, Critical chance.", link: boardLink },
+    { id: "artifact-boots", slot: "Boots", target: "Main stat Damage", note: "Wanted subs: DMG, Critical damage, Critical chance.", link: boardLink }
   ],
   references: [
-    {
-      title: "Luckborn",
-      body: "Race verifiee sur Trello. Buffs releves: +35% Luck, +80% Damage, +90% Max HP, +15% SwordDamageMulti, +15% MeleeDamageMulti."
-    },
-    {
-      title: "Radiant Rune",
-      body: "Drop rare Infinite Tower. Base 17.5% Luck, max 28% Luck."
-    },
-    {
-      title: "Primordial Rune",
-      body: "Drop rare Infinite Tower. Base 75% DMG, max 120% DMG."
-    },
-    {
-      title: "Celestial Favor",
-      body: "Titre verifie sur Trello. Obtainment indique: tuer 5000 boss. Buff releve: +50% Luck."
-    },
-    {
-      title: "Eminence / Frostbane",
-      body: "Les deux clans sont bien presents sur le Trello. Eminence est lie a Atomic Mastery, Frostbane a Ice Queen Mastery."
-    },
-    {
-      title: "Dragon Queen",
-      body: "Titre Trello releve a 97.5% Damage. Possible candidate pour ton champ 'best damage title' si c'est bien celui que tu vises."
-    }
+    { title: "Luckborn", body: "Verified on Trello. Buffs found: +35% Luck, +80% Damage, +90% Max HP, +15% SwordDamageMulti, +15% MeleeDamageMulti." },
+    { title: "Radiant Rune", body: "Rare Infinite Tower drop. Base 17.5% Luck, max 28% Luck." },
+    { title: "Primordial Rune", body: "Rare Infinite Tower drop. Base 75% DMG, max 120% DMG." },
+    { title: "Celestial Favor", body: "Verified title on Trello. Requirement: kill 5000 bosses. Buff found: +50% Luck." },
+    { title: "Eminence / Frostbane", body: "Both clans are present on Trello. Eminence is linked to Atomic Mastery, Frostbane to Ice Queen Mastery." },
+    { title: "Dragon Queen", body: "Listed on Trello at 97.5% Damage. Strong candidate for your best damage title slot." }
   ],
   missing: [
-    "Le nom exact du 'best damage title' pour les builds Sword et Melee.",
-    "L'orthographe exacte de 'Dragon goddes' et 'Comis emperor' pour afficher les bonnes cartes plus tard.",
-    "Les bonus details de Colossus, Rampage, Fortune chosen, Astral, Emperor, Luck relic et Damage relic.",
-    "La source exacte et les stats de l'accessoire Kraken si tu veux une vraie fiche complete dans le site.",
-    "Les valeurs ou caps precis de Max Haki level, Max Rune level et Blessing B10 si tu veux du suivi plus detaille qu'une simple case."
+    "The exact name of the best damage title for Sword and Melee builds.",
+    "The exact spelling of Dragon goddes and Comis emperor for future card linking.",
+    "Detailed buffs for Colossus, Rampage, Fortune chosen, Astral, Emperor, Luck relic and Damage relic.",
+    "The exact source and stats for the Kraken accessory.",
+    "Precise caps for Max Haki level, Max Rune level and Blessing B10 if you want more detailed tracking."
   ]
 };
 
-const storageKey = "sailor-build-progress-v1";
+const storageKey = "sailor-build-progress-v2";
 const buildKeys = Object.keys(appData.builds);
 const defaultState = {
-  activeSection: "build",
+  activeSection: "info",
   activeBuild: buildKeys[0],
   checked: {}
 };
@@ -371,15 +133,12 @@ const defaultState = {
 const state = loadState();
 
 const spotlightGrid = document.querySelector("#spotlight-grid");
-const summaryGrid = document.querySelector("#summary-grid");
 const buildSwitcher = document.querySelector("#build-switcher");
 const buildChecklist = document.querySelector("#build-checklist");
 const upgradesChecklist = document.querySelector("#upgrades-checklist");
 const artifactsChecklist = document.querySelector("#artifacts-checklist");
 const referenceGrid = document.querySelector("#reference-grid");
-const referenceGridArtifact = document.querySelector("#reference-grid-artifact");
 const missingList = document.querySelector("#missing-list");
-const buildTabsInline = document.querySelector("#build-tabs-inline");
 const sectionTabs = document.querySelector("#section-tabs");
 const summaryGridUpgrade = document.querySelector("#summary-grid-upgrade");
 const itemTemplate = document.querySelector("#check-item-template");
@@ -422,7 +181,6 @@ function renderApp() {
   renderChecklist(upgradesChecklist, appData.upgrades);
   renderChecklist(artifactsChecklist, appData.artifacts);
   renderReferences();
-  renderArtifactReferences();
   renderMissing();
   renderSummary();
   renderProgress();
@@ -459,7 +217,7 @@ function renderSpotlight() {
     const card = document.createElement("article");
     card.className = "spotlight-card";
     card.innerHTML = `
-      <p class="panel__label">${item.label}</p>
+      <p class="eyebrow">${item.label}</p>
       <strong>${item.value}</strong>
       <span>${item.note}</span>
     `;
@@ -469,32 +227,26 @@ function renderSpotlight() {
 
 function renderBuildTabs() {
   buildSwitcher.replaceChildren();
-  buildTabsInline.replaceChildren();
 
   buildKeys.forEach((key) => {
     const build = appData.builds[key];
-    buildSwitcher.append(createBuildButton(key, build, true));
-    buildTabsInline.append(createBuildButton(key, build, false));
+    const button = document.createElement("button");
+    button.type = "button";
+    button.dataset.build = key;
+    button.className = `build-tab${state.activeBuild === key ? " is-active" : ""}`;
+    button.textContent = build.label;
+    button.addEventListener("click", () => {
+      state.activeBuild = key;
+      saveState();
+      renderApp();
+    });
+    buildSwitcher.append(button);
   });
-}
-
-function createBuildButton(key, build, useSelectLabel) {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.dataset.build = key;
-  button.className = `build-tab${state.activeBuild === key ? " is-active" : ""}`;
-  button.textContent = useSelectLabel ? `${build.label} build` : build.label;
-  button.addEventListener("click", () => {
-    state.activeBuild = key;
-    saveState();
-    renderApp();
-  });
-  return button;
 }
 
 function renderBuildChecklist() {
   const build = appData.builds[state.activeBuild];
-  activeBuildLabel.textContent = `${build.label} focus`;
+  activeBuildLabel.textContent = `${build.label} setup`;
   activeBuildName.textContent = build.name;
   activeBuildObjective.textContent = build.objective;
   renderChecklist(buildChecklist, build.items);
@@ -508,9 +260,10 @@ function renderChecklist(container, items) {
     const wrapper = fragment.querySelector(".check-item");
     const input = fragment.querySelector("input");
     const slot = fragment.querySelector(".check-item__slot");
-    const statusBadge = fragment.querySelector(".status-badge");
     const target = fragment.querySelector(".check-item__target");
     const note = fragment.querySelector(".check-item__note");
+    const statusBadge = fragment.querySelector(".status-badge");
+    const link = fragment.querySelector(".trello-link");
 
     const checked = Boolean(state.checked[item.id]);
 
@@ -519,6 +272,7 @@ function renderChecklist(container, items) {
     target.textContent = item.target;
     note.textContent = item.note;
     statusBadge.textContent = checked ? "ok" : "not ok";
+    link.href = getTrelloLink(item);
 
     if (checked) {
       wrapper.classList.add("is-done");
@@ -552,31 +306,6 @@ function renderReferences() {
   });
 }
 
-function renderArtifactReferences() {
-  referenceGridArtifact.replaceChildren();
-
-  const cards = [
-    {
-      title: "Best set",
-      body: "Abyssal Crown reste la cible principale pour ton endgame."
-    },
-    {
-      title: "Sub stats",
-      body: "2 bonnes sub stats minimum pour valider une piece."
-    }
-  ];
-
-  cards.forEach((item) => {
-    const card = document.createElement("article");
-    card.className = "reference-card";
-    card.innerHTML = `
-      <h3>${item.title}</h3>
-      <p>${item.body}</p>
-    `;
-    referenceGridArtifact.append(card);
-  });
-}
-
 function renderMissing() {
   missingList.replaceChildren();
 
@@ -588,7 +317,6 @@ function renderMissing() {
 }
 
 function renderSummary() {
-  summaryGrid.replaceChildren();
   summaryGridUpgrade.replaceChildren();
 
   const build = appData.builds[state.activeBuild];
@@ -602,22 +330,22 @@ function renderSummary() {
     {
       label: "Global completion",
       value: formatPercent(getCompletion(overallItems).percent),
-      note: `${getCompletion(overallItems).done}/${overallItems.length} objectifs valides`
+      note: `${getCompletion(overallItems).done}/${overallItems.length} completed goals`
     },
     {
-      label: `${build.name}`,
+      label: build.name,
       value: formatPercent(getCompletion(build.items).percent),
-      note: `${getCompletion(build.items).done}/${build.items.length} slots completes`
+      note: `${getCompletion(build.items).done}/${build.items.length} completed slots`
     },
     {
       label: "Player upgrades",
       value: formatPercent(getCompletion(appData.upgrades).percent),
-      note: `${getCompletion(appData.upgrades).done}/${appData.upgrades.length} upgrades faits`
+      note: `${getCompletion(appData.upgrades).done}/${appData.upgrades.length} upgrades done`
     },
     {
-      label: "Artefact set",
+      label: "Artifact set",
       value: formatPercent(getCompletion(appData.artifacts).percent),
-      note: `${getCompletion(appData.artifacts).done}/${appData.artifacts.length} pieces reglees`
+      note: `${getCompletion(appData.artifacts).done}/${appData.artifacts.length} tuned pieces`
     }
   ];
 
@@ -625,12 +353,11 @@ function renderSummary() {
     const card = document.createElement("article");
     card.className = "summary-card";
     card.innerHTML = `
-      <p class="panel__label">${item.label}</p>
+      <p class="eyebrow">${item.label}</p>
       <strong>${item.value}</strong>
       <span>${item.note}</span>
     `;
-    summaryGrid.append(card);
-    summaryGridUpgrade.append(card.cloneNode(true));
+    summaryGridUpgrade.append(card);
   });
 }
 
@@ -660,6 +387,11 @@ function formatPercent(value) {
   return `${value}%`;
 }
 
+function getTrelloLink(item) {
+  const key = item.target.toLowerCase();
+  return directTrelloLinks[key] ?? item.link ?? boardLink;
+}
+
 function loadState() {
   const raw = localStorage.getItem(storageKey);
   if (!raw) {
@@ -669,7 +401,7 @@ function loadState() {
   try {
     const parsed = JSON.parse(raw);
     return {
-      activeSection: ["build", "upgrade", "artifact"].includes(parsed.activeSection)
+      activeSection: ["info", "build", "upgrade", "artifact"].includes(parsed.activeSection)
         ? parsed.activeSection
         : defaultState.activeSection,
       activeBuild: buildKeys.includes(parsed.activeBuild) ? parsed.activeBuild : defaultState.activeBuild,

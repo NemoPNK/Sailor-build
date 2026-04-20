@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sailor Build</title>
     <meta
       name="description"
-      content="Checklist et tracker de progression pour les builds Sailor Piece sur Roblox."
+      content="Build checklist tracker for Sailor Piece on Roblox."
     />
     <link rel="stylesheet" href="./style.css" />
   </head>
@@ -16,6 +16,7 @@
         <div>
           <p class="eyebrow">Sailor Piece checklist</p>
           <h1>Sailor Build</h1>
+          <p class="topbar__status">Updated: <strong>Yes</strong></p>
         </div>
         <div class="topbar__actions">
           <a
@@ -32,7 +33,10 @@
         </div>
       </header>
 
-      <nav class="section-tabs" aria-label="Navigation sections" id="section-tabs">
+      <nav class="section-tabs" id="section-tabs" aria-label="Main sections">
+        <button class="section-tab section-tab--info" data-section="info" type="button">
+          Info
+        </button>
         <button class="section-tab section-tab--build" data-section="build" type="button">
           Build
         </button>
@@ -45,40 +49,54 @@
       </nav>
 
       <main class="layout">
-        <section class="workspace" id="build-section" data-section-panel="build">
-          <aside class="selector-card">
-            <p class="eyebrow">Selecteur</p>
-            <div class="selector-list" id="build-switcher"></div>
-            <div class="meta-mini" id="spotlight-grid"></div>
-          </aside>
+        <section class="info-panel" data-section-panel="info">
+          <div class="info-card">
+            <p class="eyebrow">Main info</p>
+            <div class="info-cards" id="spotlight-grid"></div>
+          </div>
 
-          <section class="main-card">
-            <div class="main-card__head">
-              <div>
-                <p class="active-build__label" id="active-build-label"></p>
-                <h2 id="active-build-name"></h2>
-              </div>
-              <button class="button button--ghost" id="reset-build" type="button">
-                Reset
-              </button>
+          <div class="info-strip">
+            <div class="info-card">
+              <p class="eyebrow">Useful refs</p>
+              <div class="reference-grid" id="reference-grid"></div>
             </div>
-
-            <p class="main-card__objective" id="active-build-objective"></p>
-
-            <div class="tabs-inline" id="build-tabs-inline"></div>
-
-            <div class="progress-box">
-              <div class="progress-track">
-                <div class="progress-fill" id="build-progress-fill"></div>
-              </div>
-              <strong id="build-progress-copy"></strong>
+            <div class="info-card">
+              <p class="eyebrow">To confirm</p>
+              <ul class="missing-list" id="missing-list"></ul>
             </div>
-
-            <div class="checklist checklist--tight" id="build-checklist"></div>
-          </section>
+          </div>
         </section>
 
-        <section class="simple-grid section-panel" id="upgrade-section" data-section-panel="upgrade">
+        <section class="workspace workspace--solo" data-section-panel="build">
+          <div class="build-main-wrap">
+            <div class="build-toggle" id="build-switcher"></div>
+
+            <section class="main-card">
+              <div class="main-card__head">
+                <div>
+                  <p class="active-build__label" id="active-build-label"></p>
+                  <h2 id="active-build-name"></h2>
+                </div>
+                <button class="button button--ghost" id="reset-build" type="button">
+                  Reset build
+                </button>
+              </div>
+
+              <p class="main-card__objective" id="active-build-objective"></p>
+
+              <div class="progress-box">
+                <div class="progress-track">
+                  <div class="progress-fill" id="build-progress-fill"></div>
+                </div>
+                <strong id="build-progress-copy"></strong>
+              </div>
+
+              <div class="checklist checklist--tight" id="build-checklist"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="simple-grid section-panel" data-section-panel="upgrade">
           <section class="simple-card simple-card--upgrade">
             <div class="simple-card__head">
               <div>
@@ -92,22 +110,23 @@
             </div>
             <div class="checklist checklist--tight" id="upgrades-checklist"></div>
           </section>
+
           <section class="simple-card simple-card--upgrade side-note-card">
             <div class="simple-card__head">
               <div>
-                <p class="eyebrow">Progression</p>
-                <h3>Resume joueur</h3>
+                <p class="eyebrow">Progress</p>
+                <h3>Player summary</h3>
               </div>
             </div>
             <div class="mini-summary mini-summary--stack" id="summary-grid-upgrade"></div>
           </section>
         </section>
 
-        <section class="simple-grid section-panel" id="artifact-section" data-section-panel="artifact">
+        <section class="simple-grid simple-grid--single section-panel" data-section-panel="artifact">
           <section class="simple-card simple-card--artifact">
             <div class="simple-card__head">
               <div>
-                <p class="eyebrow">Artefact</p>
+                <p class="eyebrow">Artifact</p>
                 <h3>Abyssal Crown</h3>
               </div>
               <strong id="artifacts-progress-copy"></strong>
@@ -117,30 +136,6 @@
             </div>
             <div class="checklist checklist--tight" id="artifacts-checklist"></div>
           </section>
-
-          <section class="simple-card simple-card--artifact side-note-card">
-            <div class="simple-card__head">
-              <div>
-                <p class="eyebrow">Target</p>
-                <h3>Rappel set</h3>
-              </div>
-            </div>
-            <div class="reference-grid reference-grid--single" id="reference-grid-artifact"></div>
-          </section>
-        </section>
-
-        <section class="footer-strip" data-section-panel="build">
-          <div class="mini-summary" id="summary-grid"></div>
-          <div class="info-strip">
-            <div class="info-card">
-              <p class="eyebrow">Refs utiles</p>
-              <div class="reference-grid" id="reference-grid"></div>
-            </div>
-            <div class="info-card">
-              <p class="eyebrow">A confirmer</p>
-              <ul class="missing-list" id="missing-list"></ul>
-            </div>
-          </div>
         </section>
       </main>
     </div>
@@ -149,12 +144,17 @@
       <label class="check-item">
         <input type="checkbox" />
         <span class="check-item__body">
-          <span class="check-item__topline">
-            <strong class="check-item__slot"></strong>
-            <span class="status-badge"></span>
+          <span class="check-item__main">
+            <span class="check-item__topline">
+              <strong class="check-item__slot"></strong>
+            </span>
+            <span class="check-item__target"></span>
+            <span class="check-item__note"></span>
           </span>
-          <span class="check-item__target"></span>
-          <span class="check-item__note"></span>
+          <span class="check-item__side">
+            <span class="status-badge"></span>
+            <a class="trello-link" href="#" target="_blank" rel="noreferrer">Trello</a>
+          </span>
         </span>
       </label>
     </template>
