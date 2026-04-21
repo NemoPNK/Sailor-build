@@ -1,21 +1,27 @@
 :root {
-  --bg: #1e1e1e;
-  --panel: #2a2a2a;
-  --panel-soft: #333333;
-  --panel-soft-2: #424242;
-  --line: #f0f0f0;
-  --text: #f9f9f9;
-  --muted: #cfcfcf;
+  --bg: #130e1f;
+  --panel: #24253b;
+  --panel-soft: #181b2d;
+  --panel-soft-2: #2b3050;
+  --panel-glass: rgba(26, 27, 45, 0.9);
+  --line: rgba(221, 227, 255, 0.72);
+  --text: #f7f4ff;
+  --muted: #d2d0e8;
   --green: #5cff1b;
-  --red: #ff3b20;
-  --yellow: #e9ff22;
-  --blue: #4ea2ff;
-  --cyan: #44f0ff;
-  --orange: #ff8a1f;
-  --pink: #ff4fb3;
+  --red: #ff4c45;
+  --yellow: #f3ec75;
+  --blue: #7fa8ff;
+  --cyan: #9ae8ff;
+  --orange: #ffae48;
+  --pink: #ff6fea;
+  --violet: #8a70ff;
+  --violet-soft: rgba(138, 112, 255, 0.24);
+  --shadow-text-strong: -2px -2px 0 rgba(0, 0, 0, 0.78), 2px -2px 0 rgba(0, 0, 0, 0.78),
+    -2px 2px 0 rgba(0, 0, 0, 0.78), 2px 2px 0 rgba(0, 0, 0, 0.78);
+  --shadow-text-soft: 0 2px 4px rgba(0, 0, 0, 0.55);
   --white: #ffffff;
-  --font-display: "Avenir Next Condensed", "Arial Narrow", sans-serif;
-  --font-body: "Avenir Next", "Segoe UI", sans-serif;
+  --font-display: "Copperplate", "Georgia", "Times New Roman", serif;
+  --font-body: "Trebuchet MS", "Verdana", sans-serif;
 }
 
 * {
@@ -31,13 +37,32 @@ body {
   min-height: 100vh;
   font-family: var(--font-body);
   color: var(--text);
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 50% 65%, rgba(255, 117, 245, 0.26), transparent 22%),
+    radial-gradient(circle at 72% 18%, rgba(163, 133, 255, 0.28), transparent 22%),
+    radial-gradient(circle at 16% 20%, rgba(144, 190, 255, 0.16), transparent 22%),
+    linear-gradient(180deg, #3f3562 0%, #251939 28%, #161123 60%, #120d1c 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, transparent 0 16%, rgba(255, 255, 255, 0.07) 16.5%, transparent 17.5%) 0 0 / 22% 22%,
+    linear-gradient(300deg, transparent 0 16%, rgba(255, 0, 247, 0.1) 16.5%, transparent 17.5%) 0 0 / 22% 22%;
+  opacity: 0.85;
 }
 
 .shell {
   width: min(1260px, calc(100% - 28px));
   margin: 0 auto;
-  padding: 24px 0 40px;
+  padding: 18px 0 40px;
+  position: relative;
+  z-index: 1;
 }
 
 .topbar,
@@ -46,16 +71,21 @@ body {
 .info-card,
 .summary-card,
 .spotlight-card {
-  border: 1px solid var(--line);
-  background: var(--panel);
+  border: 1px solid rgba(244, 245, 255, 0.24);
+  background: linear-gradient(180deg, rgba(57, 62, 96, 0.95), rgba(25, 28, 45, 0.96));
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.06),
+    0 18px 48px rgba(5, 0, 18, 0.45);
 }
 
 .eyebrow,
 .active-build__label {
   margin: 0 0 10px;
   letter-spacing: 0.06em;
-  font-size: 0.95rem;
-  color: var(--muted);
+  font-size: 0.88rem;
+  color: #ebe6ff;
+  text-transform: uppercase;
+  text-shadow: var(--shadow-text-soft);
 }
 
 h1,
@@ -77,14 +107,17 @@ h3,
 h1 {
   font-size: clamp(2.5rem, 5vw, 3.3rem);
   line-height: 1;
+  text-shadow: var(--shadow-text-strong);
 }
 
 h2 {
   font-size: clamp(1.9rem, 3vw, 2.2rem);
+  text-shadow: var(--shadow-text-strong);
 }
 
 h3 {
   font-size: 1.35rem;
+  text-shadow: var(--shadow-text-strong);
 }
 
 .check-item__note,
@@ -113,7 +146,11 @@ h3 {
   justify-content: space-between;
   align-items: end;
   gap: 16px;
-  padding: 18px;
+  padding: 18px 20px;
+  border-radius: 26px;
+  background:
+    linear-gradient(180deg, rgba(90, 98, 148, 0.95), rgba(34, 38, 63, 0.96)),
+    var(--panel-glass);
 }
 
 .topbar__actions {
@@ -130,8 +167,9 @@ h3 {
 }
 
 .update-badge__label {
-  color: var(--muted);
+  color: #f4f0ff;
   font-size: 0.92rem;
+  text-shadow: var(--shadow-text-soft);
 }
 
 .update-badge__value {
@@ -141,34 +179,40 @@ h3 {
   min-width: 58px;
   min-height: 32px;
   padding: 6px 12px;
-  border: 1px solid var(--line);
+  border: 2px solid rgba(213, 255, 198, 0.9);
   border-radius: 999px;
-  background: var(--green);
+  background:
+    radial-gradient(circle at center, rgba(242, 255, 231, 0.95), rgba(114, 255, 104, 0.92) 48%, rgba(36, 147, 39, 0.96) 100%);
   color: #111;
   font-weight: 800;
   letter-spacing: 0.04em;
+  box-shadow: 0 0 18px rgba(92, 255, 27, 0.35);
 }
 
 .button {
   appearance: none;
-  border: 1px solid var(--line);
-  border-radius: 0;
+  border: 2px solid rgba(241, 240, 255, 0.25);
+  border-radius: 12px;
   padding: 10px 16px;
   font-size: 0.95rem;
   cursor: pointer;
   text-decoration: none;
-  color: var(--text);
-  background: var(--panel-soft);
+  color: #f7f6ff;
+  background:
+    linear-gradient(180deg, rgba(84, 89, 128, 0.85), rgba(30, 33, 51, 0.95));
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.05);
+  text-shadow: var(--shadow-text-soft);
 }
 
 .button--ghost {
-  background: var(--white);
-  color: #111;
+  background:
+    linear-gradient(180deg, rgba(100, 103, 134, 0.95), rgba(33, 35, 52, 0.98));
+  color: #f7f6ff;
 }
 
 .section-tabs {
-  grid-template-columns: repeat(4, minmax(0, 180px));
-  margin-top: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 14px;
 }
 
 .section-tab {
@@ -177,31 +221,47 @@ h3 {
   align-items: center;
   justify-content: center;
   min-height: 46px;
-  padding: 10px 14px;
-  border: 1px solid var(--line);
-  color: #111;
+  padding: 12px 14px;
+  border: 2px solid rgba(241, 240, 255, 0.22);
+  border-radius: 14px;
+  color: #f5f0ff;
   cursor: pointer;
+  background:
+    linear-gradient(180deg, rgba(74, 82, 128, 0.95), rgba(22, 24, 40, 0.98));
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.05);
+  line-height: 1.05;
+  font-size: 1rem;
+  text-shadow: var(--shadow-text-soft);
 }
 
 .section-tab--info {
-  background: linear-gradient(90deg, #ffffff, #d7d7d7);
+  background:
+    linear-gradient(180deg, rgba(86, 89, 124, 0.96), rgba(24, 25, 37, 0.99));
 }
 
 .section-tab--build {
-  background: linear-gradient(90deg, var(--yellow), #fbff9d);
+  background:
+    linear-gradient(180deg, rgba(108, 134, 255, 0.96), rgba(31, 42, 97, 0.99));
 }
 
 .section-tab--upgrade {
-  background: linear-gradient(90deg, var(--orange), #ffbd63);
+  background:
+    linear-gradient(180deg, rgba(196, 123, 255, 0.96), rgba(69, 40, 105, 0.99));
 }
 
 .section-tab--artifact {
-  background: linear-gradient(90deg, var(--cyan), var(--blue));
+  background:
+    linear-gradient(180deg, rgba(255, 127, 194, 0.96), rgba(107, 35, 92, 0.99));
 }
 
 .section-tab.is-active {
-  box-shadow: inset 0 0 0 3px #111;
+  border-color: rgba(175, 165, 255, 0.7);
+  background:
+    linear-gradient(180deg, rgba(123, 110, 231, 0.95), rgba(57, 46, 109, 0.98));
   transform: translateY(-1px);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.18),
+    0 0 20px rgba(138, 112, 255, 0.35);
 }
 
 .layout {
@@ -221,27 +281,71 @@ h3 {
 .info-card,
 .main-card,
 .simple-card {
-  padding: 16px;
+  padding: 72px 16px 16px;
+  border-radius: 26px;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-window::before {
+  content: attr(data-window-title);
+  position: absolute;
+  top: 16px;
+  left: 18px;
+  max-width: min(420px, calc(100% - 92px));
+  height: 52px;
+  padding: 0 28px 0 58px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 18px 24px 24px 8px;
+  background:
+    linear-gradient(90deg, rgba(132, 145, 215, 0.98), rgba(74, 79, 124, 0.98) 48%, rgba(39, 42, 62, 0.98) 100%);
+  color: #efeaff;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.8vw, 1.9rem);
+  text-shadow: var(--shadow-text-strong);
+  letter-spacing: 0.04em;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.game-window::after {
+  content: "✦";
+  position: absolute;
+  top: 28px;
+  left: 24px;
+  font-size: 1.8rem;
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
 }
 
 .info-card {
   background:
-    linear-gradient(180deg, rgba(255, 79, 179, 0.08), transparent 34%),
-    var(--panel);
+    linear-gradient(180deg, rgba(164, 137, 255, 0.18), transparent 38%),
+    linear-gradient(180deg, rgba(57, 62, 96, 0.95), rgba(22, 24, 40, 0.98));
 }
 
 .info-cards {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .spotlight-card {
   padding: 12px;
-  background: var(--panel-soft-2);
+  border-radius: 18px;
+  border: 2px solid rgba(252, 82, 82, 0.65);
+  background:
+    linear-gradient(180deg, rgba(32, 34, 56, 0.98), rgba(17, 18, 31, 0.98));
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.04);
 }
 
 .spotlight-card strong {
   display: block;
-  font-size: 1rem;
+  font-size: clamp(1.45rem, 2vw, 1.8rem);
+  color: #ffcf47;
+  text-shadow: var(--shadow-text-strong);
+  line-height: 1.08;
 }
 
 .spotlight-card span {
@@ -257,9 +361,10 @@ h3 {
 
 .reference-grid > * {
   border: 1px solid var(--line);
-  background: linear-gradient(90deg, rgba(255, 79, 179, 0.12), var(--panel-soft));
-  padding: 8px;
-  font-size: 0.85rem;
+  border-radius: 14px;
+  background: linear-gradient(90deg, rgba(255, 79, 179, 0.18), rgba(31, 34, 55, 0.98));
+  padding: 12px;
+  font-size: 0.95rem;
 }
 
 .reference-grid h3,
@@ -283,31 +388,39 @@ h3 {
 }
 
 .build-toggle {
-  grid-template-columns: repeat(3, minmax(0, 180px));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  margin-bottom: 10px;
 }
 
 .build-tab {
   appearance: none;
-  min-height: 50px;
+  min-height: 54px;
   padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: 0;
-  color: #111;
-  background: var(--white);
+  border: 2px solid rgba(241, 240, 255, 0.18);
+  border-radius: 12px;
+  color: #f8f6ff;
+  background:
+    linear-gradient(180deg, rgba(57, 61, 95, 0.96), rgba(18, 20, 34, 0.98));
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.18rem;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.04);
+  text-shadow: var(--shadow-text-soft);
 }
 
 .build-tab.is-active {
-  background: var(--green);
-  box-shadow: inset 0 0 0 2px #111;
+  color: #f1fff0;
+  background:
+    linear-gradient(180deg, rgba(154, 255, 120, 0.98), rgba(41, 155, 44, 1));
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.2),
+    0 0 20px rgba(92, 255, 27, 0.28);
 }
 
 .main-card {
   width: min(100%, 1100px);
   background:
-    linear-gradient(180deg, rgba(233, 255, 34, 0.08), transparent 34%),
-    var(--panel);
+    linear-gradient(180deg, rgba(164, 137, 255, 0.18), transparent 40%),
+    linear-gradient(180deg, rgba(50, 55, 86, 0.96), rgba(21, 23, 38, 0.98));
 }
 
 .main-card__head,
@@ -330,16 +443,20 @@ h3 {
 
 .progress-track {
   width: 100%;
-  height: 18px;
+  height: 20px;
   overflow: hidden;
-  border: 1px solid var(--line);
-  background: #3a3a3a;
+  border: 2px solid rgba(242, 242, 255, 0.18);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(12, 13, 22, 0.9), rgba(43, 46, 63, 0.9));
 }
 
 .progress-fill {
   height: 100%;
   width: 0;
-  background: var(--green);
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg, rgba(84, 255, 86, 0.96), rgba(183, 255, 168, 0.96));
+  box-shadow: 0 0 14px rgba(92, 255, 27, 0.45);
   transition: width 220ms ease;
 }
 
@@ -357,10 +474,13 @@ h3 {
   grid-template-columns: 18px 1fr;
   gap: 10px;
   align-items: start;
-  padding: 8px;
-  border: 1px solid var(--line);
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), var(--panel-soft));
+  padding: 12px;
+  border: 2px solid rgba(255, 69, 69, 0.72);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(24, 26, 44, 0.98), rgba(13, 14, 25, 0.98));
   cursor: pointer;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.03);
 }
 
 .check-item input {
@@ -372,7 +492,7 @@ h3 {
 
 .check-item__body {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 96px;
+  grid-template-columns: minmax(0, 1fr) 110px;
   gap: 10px;
   width: 100%;
 }
@@ -384,21 +504,31 @@ h3 {
 }
 
 .check-item__slot {
-  font-size: 0.9rem;
+  font-size: 1rem;
+  color: #e5e0ff;
+  text-shadow: var(--shadow-text-soft);
 }
 
 .check-item__target {
-  font-size: 0.98rem;
-  font-weight: 600;
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 800;
+  color: #ffd24a;
+  text-shadow: var(--shadow-text-strong);
+  line-height: 1.08;
+  overflow-wrap: anywhere;
 }
 
 .check-item__note {
-  font-size: 0.82rem;
+  font-size: 0.96rem;
   line-height: 1.35;
+  color: #f0eef7;
+  text-shadow: var(--shadow-text-soft);
 }
 
 .check-item.is-done {
-  background: linear-gradient(90deg, rgba(92, 255, 27, 0.18), rgba(92, 255, 27, 0.06));
+  border-color: rgba(112, 255, 112, 0.82);
+  background:
+    linear-gradient(180deg, rgba(26, 45, 24, 0.98), rgba(11, 24, 15, 0.98));
 }
 
 .check-item__side {
@@ -416,13 +546,16 @@ h3 {
   width: 100%;
   min-height: 42px;
   padding: 8px 12px;
-  border: 1px solid var(--line);
-  background: linear-gradient(90deg, var(--cyan), var(--blue));
-  color: #111;
+  border: 2px solid rgba(150, 255, 143, 0.8);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(160, 255, 131, 0.98), rgba(49, 160, 55, 0.98));
+  color: #f8fff6;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.04em;
+  text-shadow: var(--shadow-text-soft);
 }
 
 .status-badge {
@@ -430,20 +563,25 @@ h3 {
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 68px;
+  min-height: 78px;
   padding: 8px 10px;
-  font-size: 1rem;
+  font-size: 1.12rem;
   text-transform: lowercase;
-  color: #111;
-  border: 1px solid var(--line);
-  background: var(--red);
+  color: #fff8f6;
+  border: 2px solid rgba(255, 170, 170, 0.7);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 126, 126, 0.98), rgba(166, 40, 40, 0.98));
   text-align: center;
   line-height: 1.1;
   font-weight: 800;
+  text-shadow: var(--shadow-text-soft);
 }
 
 .status-badge.is-done {
-  background: var(--green);
+  border-color: rgba(195, 255, 188, 0.76);
+  background:
+    linear-gradient(180deg, rgba(168, 255, 151, 0.98), rgba(48, 151, 54, 0.98));
 }
 
 .simple-grid {
@@ -456,14 +594,14 @@ h3 {
 
 .simple-card--upgrade {
   background:
-    linear-gradient(180deg, rgba(255, 138, 31, 0.14), transparent 36%),
-    var(--panel);
+    linear-gradient(180deg, rgba(85, 115, 255, 0.18), transparent 36%),
+    linear-gradient(180deg, rgba(50, 55, 86, 0.96), rgba(21, 23, 38, 0.98));
 }
 
 .simple-card--artifact {
   background:
-    linear-gradient(180deg, rgba(68, 240, 255, 0.14), transparent 36%),
-    var(--panel);
+    linear-gradient(180deg, rgba(201, 104, 255, 0.18), transparent 36%),
+    linear-gradient(180deg, rgba(50, 55, 86, 0.96), rgba(21, 23, 38, 0.98));
 }
 
 .side-note-card {
@@ -480,6 +618,8 @@ h3 {
 
 .summary-card {
   padding: 10px 12px;
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.05);
 }
 
 .summary-card:nth-child(1) {
@@ -517,6 +657,10 @@ h3 {
   .build-toggle,
   .simple-grid {
     grid-template-columns: 1fr;
+  }
+
+  .game-window::before {
+    max-width: calc(100% - 54px);
   }
 }
 

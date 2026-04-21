@@ -53,17 +53,17 @@
 
       <main class="layout">
         <section class="info-panel" data-section-panel="info">
-          <div class="info-card">
+          <div class="info-card game-window" data-window-title="Info">
             <p class="eyebrow">Main info</p>
             <div class="info-cards" id="spotlight-grid"></div>
           </div>
 
           <div class="info-strip">
-            <div class="info-card">
+            <div class="info-card game-window" data-window-title="Refs">
               <p class="eyebrow">Useful refs</p>
               <div class="reference-grid" id="reference-grid"></div>
             </div>
-            <div class="info-card">
+            <div class="info-card game-window" data-window-title="Missing">
               <p class="eyebrow">To confirm</p>
               <ul class="missing-list" id="missing-list"></ul>
             </div>
@@ -74,7 +74,7 @@
           <div class="build-main-wrap">
             <div class="build-toggle" id="build-switcher"></div>
 
-            <section class="main-card">
+            <section class="main-card game-window" data-window-title="Build">
               <div class="main-card__head">
                 <div>
                   <p class="active-build__label" id="active-build-label"></p>
@@ -100,7 +100,7 @@
         </section>
 
         <section class="simple-grid section-panel" data-section-panel="upgrade">
-          <section class="simple-card simple-card--upgrade">
+          <section class="simple-card simple-card--upgrade game-window" data-window-title="Stats">
             <div class="simple-card__head">
               <div>
                 <p class="eyebrow">Player</p>
@@ -114,7 +114,7 @@
             <div class="checklist checklist--tight" id="upgrades-checklist"></div>
           </section>
 
-          <section class="simple-card simple-card--upgrade side-note-card">
+          <section class="simple-card simple-card--upgrade side-note-card game-window" data-window-title="Summary">
             <div class="simple-card__head">
               <div>
                 <p class="eyebrow">Progress</p>
@@ -126,7 +126,7 @@
         </section>
 
         <section class="simple-grid simple-grid--single section-panel" data-section-panel="artifact">
-          <section class="simple-card simple-card--artifact">
+          <section class="simple-card simple-card--artifact game-window" data-window-title="Artifacts">
             <div class="simple-card__head">
               <div>
                 <p class="eyebrow">Artifact</p>
