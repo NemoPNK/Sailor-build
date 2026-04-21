@@ -12,46 +12,73 @@
   </head>
   <body>
     <div class="shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Sailor Piece checklist</p>
-          <h1>Sailor Build</h1>
-          <div class="update-badge">
-            <span class="update-badge__label">Updated</span>
-            <span class="update-badge__value">Yes</span>
-          </div>
-        </div>
-        <div class="topbar__actions">
-          <a
-            class="button button--ghost"
-            href="https://trello.com/b/EVZ6nToB/sailor-piece"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Trello
-          </a>
-          <button class="button button--ghost" id="reset-all" type="button">
-            Reset all
-          </button>
-        </div>
-      </header>
+      <div class="app-stage">
+        <div class="game-modal">
+          <button class="modal-close" type="button" aria-label="Close">X</button>
 
-      <nav class="section-tabs" id="section-tabs" aria-label="Main sections">
-        <button class="section-tab section-tab--info" data-section="info" type="button">
-          Info
-        </button>
-        <button class="section-tab section-tab--build" data-section="build" type="button">
-          Build
-        </button>
-        <button class="section-tab section-tab--upgrade" data-section="upgrade" type="button">
-          Player upgrade
-        </button>
-        <button class="section-tab section-tab--artifact" data-section="artifact" type="button">
-          Artifact
-        </button>
-      </nav>
+          <header class="topbar">
+            <div>
+              <p class="eyebrow">Sailor Piece checklist</p>
+              <h1>Sailor Build</h1>
+              <div class="update-badge">
+                <span class="update-badge__label">Updated</span>
+                <span class="update-badge__value">Yes</span>
+              </div>
+            </div>
+            <div class="topbar__actions">
+              <a
+                class="button button--ghost"
+                href="https://trello.com/b/EVZ6nToB/sailor-piece"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Trello
+              </a>
+              <button class="button button--ghost" id="reset-all" type="button">
+                Reset all
+              </button>
+            </div>
+          </header>
 
-      <main class="layout">
+          <nav class="section-tabs" id="section-tabs" aria-label="Main sections">
+            <button class="section-tab section-tab--info" data-section="info" type="button">
+              Info
+            </button>
+            <button class="section-tab section-tab--build" data-section="build" type="button">
+              Build
+            </button>
+            <button class="section-tab section-tab--upgrade" data-section="upgrade" type="button">
+              Player upgrade
+            </button>
+            <button class="section-tab section-tab--artifact" data-section="artifact" type="button">
+              Artifact
+            </button>
+          </nav>
+
+          <section class="command-deck">
+            <article class="command-card command-card--focus">
+              <p class="eyebrow">Active build</p>
+              <strong id="deck-build-name"></strong>
+              <span id="deck-build-role"></span>
+            </article>
+            <article class="command-card command-card--build">
+              <p class="eyebrow">Build clear</p>
+              <strong id="deck-build-progress"></strong>
+              <span>Current loadout completion</span>
+            </article>
+            <article class="command-card command-card--upgrade">
+              <p class="eyebrow">Stats clear</p>
+              <strong id="deck-upgrades-progress"></strong>
+              <span>Player upgrade progress</span>
+            </article>
+            <article class="command-card command-card--artifact">
+              <p class="eyebrow">Artifact clear</p>
+              <strong id="deck-artifacts-progress"></strong>
+              <span>Abyssal Crown tuning</span>
+            </article>
+          </section>
+
+          <main class="layout">
         <section class="info-panel" data-section-panel="info">
           <div class="info-card game-window" data-window-title="Info">
             <p class="eyebrow">Main info</p>
@@ -86,6 +113,18 @@
               </div>
 
               <p class="main-card__objective" id="active-build-objective"></p>
+
+              <div class="build-toolbar">
+                <label class="search-shell" for="build-search">
+                  <span class="search-shell__label">Search</span>
+                  <input id="build-search" type="text" placeholder="Race, rune, trait..." />
+                </label>
+                <div class="filter-group" id="build-filters">
+                  <button class="filter-chip" data-filter="all" type="button">All</button>
+                  <button class="filter-chip" data-filter="missing" type="button">Missing</button>
+                  <button class="filter-chip" data-filter="done" type="button">Done</button>
+                </div>
+              </div>
 
               <div class="progress-box">
                 <div class="progress-track">
@@ -140,7 +179,9 @@
             <div class="checklist checklist--tight" id="artifacts-checklist"></div>
           </section>
         </section>
-      </main>
+          </main>
+        </div>
+      </div>
     </div>
 
     <template id="check-item-template">

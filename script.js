@@ -127,6 +127,8 @@ const buildKeys = Object.keys(appData.builds);
 const defaultState = {
   activeSection: "info",
   activeBuild: buildKeys[0],
+  buildFilter: "all",
+  buildSearch: "",
   checked: {}
 };
 
@@ -140,9 +142,12 @@ const artifactsChecklist = document.querySelector("#artifacts-checklist");
 const referenceGrid = document.querySelector("#reference-grid");
 const missingList = document.querySelector("#missing-list");
 const sectionTabs = document.querySelector("#section-tabs");
+const sideRail = document.querySelector("#side-rail");
 const summaryGridUpgrade = document.querySelector("#summary-grid-upgrade");
 const itemTemplate = document.querySelector("#check-item-template");
 const sectionPanels = document.querySelectorAll("[data-section-panel]");
+const buildSearchInput = document.querySelector("#build-search");
+const buildFilters = document.querySelector("#build-filters");
 
 const activeBuildLabel = document.querySelector("#active-build-label");
 const activeBuildName = document.querySelector("#active-build-name");
@@ -154,6 +159,11 @@ const upgradesProgressCopy = document.querySelector("#upgrades-progress-copy");
 const upgradesProgressFill = document.querySelector("#upgrades-progress-fill");
 const artifactsProgressCopy = document.querySelector("#artifacts-progress-copy");
 const artifactsProgressFill = document.querySelector("#artifacts-progress-fill");
+const deckBuildName = document.querySelector("#deck-build-name");
+const deckBuildRole = document.querySelector("#deck-build-role");
+const deckBuildProgress = document.querySelector("#deck-build-progress");
+const deckUpgradesProgress = document.querySelector("#deck-upgrades-progress");
+const deckArtifactsProgress = document.querySelector("#deck-artifacts-progress");
 
 document.querySelector("#reset-all").addEventListener("click", () => {
   state.checked = {};
@@ -172,6 +182,20 @@ document.querySelector("#reset-build").addEventListener("click", () => {
 
 renderApp();
 
+buildSearchInput.addEventListener("input", (event) => {
+  state.buildSearch = event.target.value;
+  saveState();
+  renderApp();
+});
+
+buildFilters.querySelectorAll("[data-filter]").forEach((button) => {
+  button.addEventListener("click", () => {
+    state.buildFilter = button.dataset.filter;
+    saveState();
+    renderApp();
+  });
+});
+
 function renderApp() {
   renderSectionTabs();
   renderSectionPanels();
@@ -184,10 +208,11 @@ function renderApp() {
   renderMissing();
   renderSummary();
   renderProgress();
+  renderCommandDeck();
 }
 
 function renderSectionTabs() {
-  const buttons = sectionTabs.querySelectorAll("[data-section]");
+  const buttons = document.querySelectorAll("[data-section]");
   buttons.forEach((button) => {
     const isActive = button.dataset.section === state.activeSection;
     button.classList.toggle("is-active", isActive);
@@ -246,10 +271,13 @@ function renderBuildTabs() {
 
 function renderBuildChecklist() {
   const build = appData.builds[state.activeBuild];
+  const filteredItems = getFilteredBuildItems(build.items);
   activeBuildLabel.textContent = `${build.label} setup`;
   activeBuildName.textContent = build.name;
-  activeBuildObjective.textContent = build.objective;
-  renderChecklist(buildChecklist, build.items);
+  activeBuildObjective.textContent = `${build.objective} Showing ${filteredItems.length}/${build.items.length} entries.`;
+  buildSearchInput.value = state.buildSearch;
+  renderBuildFilters();
+  renderChecklist(buildChecklist, filteredItems);
 }
 
 function renderChecklist(container, items) {
@@ -361,6 +389,12 @@ function renderSummary() {
   });
 }
 
+function renderBuildFilters() {
+  buildFilters.querySelectorAll("[data-filter]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.filter === state.buildFilter);
+  });
+}
+
 function renderProgress() {
   const buildStats = getCompletion(appData.builds[state.activeBuild].items);
   const upgradesStats = getCompletion(appData.upgrades);
@@ -376,6 +410,19 @@ function renderProgress() {
   artifactsProgressFill.style.width = `${artifactStats.percent}%`;
 }
 
+function renderCommandDeck() {
+  const build = appData.builds[state.activeBuild];
+  const buildStats = getCompletion(build.items);
+  const upgradesStats = getCompletion(appData.upgrades);
+  const artifactStats = getCompletion(appData.artifacts);
+
+  deckBuildName.textContent = build.name;
+  deckBuildRole.textContent = build.objective;
+  deckBuildProgress.textContent = `${buildStats.done}/${buildStats.total} - ${formatPercent(buildStats.percent)}`;
+  deckUpgradesProgress.textContent = `${upgradesStats.done}/${upgradesStats.total} - ${formatPercent(upgradesStats.percent)}`;
+  deckArtifactsProgress.textContent = `${artifactStats.done}/${artifactStats.total} - ${formatPercent(artifactStats.percent)}`;
+}
+
 function getCompletion(items) {
   const total = items.length;
   const done = items.filter((item) => Boolean(state.checked[item.id])).length;
@@ -385,6 +432,31 @@ function getCompletion(items) {
 
 function formatPercent(value) {
   return `${value}%`;
+}
+
+function getFilteredBuildItems(items) {
+  const query = state.buildSearch.trim().toLowerCase();
+
+  return items.filter((item) => {
+    const matchesSearch =
+      query.length === 0 ||
+      item.slot.toLowerCase().includes(query) ||
+      item.target.toLowerCase().includes(query) ||
+      item.note.toLowerCase().includes(query);
+
+    if (!matchesSearch) {
+      return false;
+    }
+
+    const checked = Boolean(state.checked[item.id]);
+    if (state.buildFilter === "done") {
+      return checked;
+    }
+    if (state.buildFilter === "missing") {
+      return !checked;
+    }
+    return true;
+  });
 }
 
 function getTrelloLink(item) {
@@ -405,6 +477,10 @@ function loadState() {
         ? parsed.activeSection
         : defaultState.activeSection,
       activeBuild: buildKeys.includes(parsed.activeBuild) ? parsed.activeBuild : defaultState.activeBuild,
+      buildFilter: ["all", "missing", "done"].includes(parsed.buildFilter)
+        ? parsed.buildFilter
+        : defaultState.buildFilter,
+      buildSearch: typeof parsed.buildSearch === "string" ? parsed.buildSearch : defaultState.buildSearch,
       checked: parsed.checked ?? {}
     };
   } catch {
